@@ -82,21 +82,6 @@ public interface IReactAdminController<T, ID extends Serializable> {
     ResponseEntity<T> update(@PathVariable ID id, @RequestBody Map<String, Object> fields);
 
     /**
-     * Updates multiple entities with the same field values in a single operation.
-     * This endpoint implements ra-data-json-server's updateMany operation for bulk updates.
-     *
-     * <p><b>Note:</b> In standard ra-data-json-server implementations, individual PUT requests are often
-     * sent for each record. This endpoint is primarily used when custom bulk actions are configured
-     * or when optimizing for batch operations.</p>
-     *
-     * @param id     list of entity identifiers to update
-     * @param fields map of field names to new values; these fields will be updated for all specified entities
-     * @return ResponseEntity containing a list of updated entity IDs
-     */
-    @PutMapping
-    ResponseEntity<List<ID>> updateMany(@RequestParam List<ID> id, @RequestBody Map<String, Object> fields);
-
-    /**
      * Deletes a single entity by its identifier.
      * This endpoint implements ra-data-json-server's delete operation.
      *
@@ -105,14 +90,4 @@ public interface IReactAdminController<T, ID extends Serializable> {
      */
     @DeleteMapping("/{id}")
     ResponseEntity<Void> delete(@PathVariable ID id);
-
-    /**
-     * Deletes multiple entities in a single operation.
-     * This endpoint implements ra-data-json-server's deleteMany operation for bulk deletions.
-     *
-     * @param id list of entity identifiers to delete
-     * @return ResponseEntity with no content (204 No Content)
-     */
-    @DeleteMapping
-    ResponseEntity<Void> deleteMany(@RequestParam List<ID> id);
 }

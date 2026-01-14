@@ -60,7 +60,7 @@ public class UserService implements IReactAdminService<User, Long> {
     }
 
     @Override
-    public User save(User entity) {
+    public User create(User entity) {
         return userRepository.save(entity);
     }
 
@@ -86,31 +86,7 @@ public class UserService implements IReactAdminService<User, Long> {
     }
 
     @Override
-    public List<Long> updateAll(Iterable<Long> ids, Map<String, Object> fields) {
-        List<User> users = findAllById(ids);
-        users.forEach(user -> fields.forEach((key, value) -> {
-            switch (key) {
-                case "name":
-                    user.setName((String) value);
-                    break;
-                case "email":
-                    user.setEmail((String) value);
-                    break;
-                case "role":
-                    user.setRole((String) value);
-                    break;
-            }
-        }));
-        return userRepository.saveAll(users).stream().map(User::getId).toList();
-    }
-
-    @Override
     public void deleteById(Long id) {
         userRepository.deleteById(id);
-    }
-
-    @Override
-    public void deleteAllById(Iterable<Long> ids) {
-        userRepository.deleteAllById(ids);
     }
 }

@@ -35,12 +35,12 @@ public interface IReactAdminService<T, ID extends Serializable> {
     T findById(ID id);
 
     /**
-     * Saves a new entity or updates an existing one.
+     * Creates a new entity.
      *
      * @param entity The entity to save.
      * @return The saved entity.
      */
-    T save(T entity);
+    T create(T entity);
 
     /**
      * Updates specific fields of an existing entity.
@@ -52,25 +52,9 @@ public interface IReactAdminService<T, ID extends Serializable> {
     T update(ID id, Map<String, Object> fields);
 
     /**
-     * Updates specific fields of multiple entities.
-     *
-     * @param ids    The collection of entity IDs to update.
-     * @param fields A map of field names to their new values.
-     * @return A list of IDs of the updated entities.
-     */
-    List<ID> updateAll(Iterable<ID> ids, Map<String, Object> fields);
-
-    /**
      * Deletes an entity by its ID.
      *
      * @param id The ID of the entity to delete.
      */
     void deleteById(ID id);
-
-    /**
-     * Deletes multiple entities by their IDs.
-     *
-     * @param ids The collection of entity IDs to delete.
-     */
-    void deleteAllById(Iterable<ID> ids);
 }

@@ -1,6 +1,8 @@
 package dev.femrek.reactadmindataprovider.controller;
 
 import dev.femrek.reactadmindataprovider.service.IReactAdminService;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -14,7 +16,13 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class ReactAdminController<T, ID extends Serializable> implements IReactAdminController<T, ID> {
+    private static final Log log = LogFactory.getLog(ReactAdminController.class);
+
     protected abstract IReactAdminService<T, ID> getService();
+
+    private static final List<String> RESERVED_PARAMS = List.of(
+            "_start", "_end", "_sort", "_order", "q", "id", "_embed"
+    );
 
     @Override
     public ResponseEntity<List<T>> getList(
@@ -40,8 +48,13 @@ public abstract class ReactAdminController<T, ID extends Serializable> implement
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
 
         // 3. Clean up filters
+        // check if _embed is present to avoid issues with JPA specifications
+        if (allParams.containsKey("_embed")) {
+            log.warn("The '_embed' parameter is not supported and will be ignored.");
+        }
+
         // We remove the protocol params so only actual filters (like "status", "authorId") remain
-        List.of("_start", "_end", "_sort", "_order", "id", "q").forEach(allParams.keySet()::remove);
+        RESERVED_PARAMS.forEach(allParams.keySet()::remove);
 
         // 4. Fetch Data
         Page<T> pageResult = getService().findWithFilters(allParams, q, pageable);
@@ -61,7 +74,7 @@ public abstract class ReactAdminController<T, ID extends Serializable> implement
 
     @Override
     public ResponseEntity<T> create(T entity) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(getService().save(entity));
+        return ResponseEntity.status(HttpStatus.CREATED).body(getService().create(entity));
     }
 
     @Override
@@ -70,19 +83,8 @@ public abstract class ReactAdminController<T, ID extends Serializable> implement
     }
 
     @Override
-    public ResponseEntity<List<ID>> updateMany(List<ID> ids, Map<String, Object> fields) {
-        return ResponseEntity.ok(getService().updateAll(ids, fields));
-    }
-
-    @Override
     public ResponseEntity<Void> delete(ID id) {
         getService().deleteById(id);
-        return ResponseEntity.noContent().build();
-    }
-
-    @Override
-    public ResponseEntity<Void> deleteMany(List<ID> ids) {
-        getService().deleteAllById(ids);
         return ResponseEntity.noContent().build();
     }
 }
