@@ -1,6 +1,5 @@
 package dev.femrek.reactadmindataprovider.integration;
 
-import org.jspecify.annotations.NonNull;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
@@ -20,7 +19,7 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(@NonNull String @NonNull ... args) {
+    public void run(String... args) {
         // Clear existing data
         userRepository.deleteAll();
 

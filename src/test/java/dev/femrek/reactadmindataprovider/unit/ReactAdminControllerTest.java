@@ -1,20 +1,17 @@
 package dev.femrek.reactadmindataprovider.unit;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-import okhttp3.MediaType;
-import org.jetbrains.annotations.NotNull;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
-import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,7 +43,6 @@ class ReactAdminControllerTest {
         return "http://localhost:" + port + "/api/users";
     }
 
-    @NotNull
     private HttpUrl baseHttpUrl() {
         HttpUrl result = HttpUrl.parse(baseUrl());
         assertNotNull(result);
@@ -107,7 +103,8 @@ class ReactAdminControllerTest {
 
         try (Response response2 = client.newCall(request2).execute()) {
             assertEquals(201, response2.code());
-            String body = Objects.requireNonNull(response2.body()).string();
+            assertNotNull(response2.body());
+            String body = response2.body().string();
             @SuppressWarnings("unchecked")
             Map<String, Object> responseBody2 = objectMapper.readValue(body, Map.class);
             createdUserId2 = ((Number) responseBody2.get("id")).longValue();
@@ -365,7 +362,8 @@ class ReactAdminControllerTest {
 
         long deleteId;
         try (Response createResponse = client.newCall(createRequest).execute()) {
-            String body = Objects.requireNonNull(createResponse.body()).string();
+            assertNotNull(createResponse.body());
+            String body = createResponse.body().string();
             @SuppressWarnings("unchecked")
             Map<String, Object> created = objectMapper.readValue(body, Map.class);
             deleteId = ((Number) created.get("id")).longValue();
