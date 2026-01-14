@@ -155,6 +155,7 @@
                             <classpathScope>test</classpathScope>
                             <arguments>
                                 <argument>--server.port=8081</argument>
+                                <argument>--spring.profiles.active=test</argument>
                             </arguments>
                         </configuration>
                     </plugin>
