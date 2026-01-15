@@ -1,12 +1,13 @@
 package dev.femrek.reactadmindataprovider.unit;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
+import okhttp3.MediaType;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.TestPropertySource;
+import tools.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
 import java.util.HashMap;
