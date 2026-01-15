@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>dev.femrek</groupId>
-    <artifactId>ra-json-spring-api</artifactId>
+    <artifactId>ra-spring-json-server</artifactId>
     <version>0.2.0</version>
     <packaging>jar</packaging>
     <name>react-admin-data-provider</name>
