@@ -43,7 +43,7 @@ This library bridges the gap between Spring Boot applications and React Admin fr
 ## Requirements
 
 - **Java**: 17 or higher
-- **Spring Boot**: 4.0.1 or higher
+- **Spring Boot**: 4 or higher recommended
 - **Maven**: 3.6+ (or Gradle)
 
 ## Installation
