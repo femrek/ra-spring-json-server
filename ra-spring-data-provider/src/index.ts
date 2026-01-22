@@ -2,7 +2,58 @@ import queryString from "query-string";
 import { fetchUtils, DataProvider } from "ra-core";
 
 /**
- * copy of ra-data-json-server. will be adapted to spring data rest in the future
+ * Creates a React Admin data provider for Spring Boot REST APIs following JSON Server conventions.
+ *
+ * This data provider is designed to work with Spring Boot controllers that implement the
+ * IRAController interface, supporting JSON Server-style query parameters and response formats.
+ *
+ * @param apiUrl - The base URL of your Spring Boot API (e.g., 'http://localhost:8081/api')
+ * @param httpClient - Optional custom HTTP client function (defaults to fetchUtils.fetchJson)
+ *
+ * @returns A React Admin DataProvider instance
+ *
+ * @example
+ * ```tsx
+ * import { Admin, Resource } from 'react-admin';
+ * import raSpringDataProvider from 'ra-spring-data-provider';
+ *
+ * const dataProvider = raSpringDataProvider('http://localhost:8081/api');
+ *
+ * const App = () => (
+ *   <Admin dataProvider={dataProvider}>
+ *     <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate} />
+ *   </Admin>
+ * );
+ * ```
+ *
+ * @remarks
+ * **API Requirements:**
+ * - GET endpoints must return X-Total-Count header for pagination
+ * - List queries use _start, _end, _sort, _order query parameters
+ * - Bulk operations (updateMany, deleteMany) use multiple id query parameters
+ * - CORS must expose the X-Total-Count header
+ *
+ * **Supported Operations:**
+ * - `getList`: GET /resource?_start=0&_end=10&_sort=id&_order=ASC
+ * - `getOne`: GET /resource/123
+ * - `getMany`: GET /resource?id=123&id=456&id=789
+ * - `getManyReference`: GET /resource?author_id=12&_start=0&_end=10
+ * - `create`: POST /resource with JSON body
+ * - `update`: PUT /resource/123 with JSON body
+ * - `updateMany`: PUT /resource?id=123&id=456 with JSON body (bulk update)
+ * - `delete`: DELETE /resource/123
+ * - `deleteMany`: DELETE /resource?id=123&id=456 (bulk delete)
+ *
+ * **Spring Boot Adaptations:**
+ * - Bulk operations (updateMany, deleteMany) send single requests with multiple id parameters
+ * - updateMany sends data fields in request body to update all specified records
+ * - This differs from standard ra-data-json-server which sends individual requests for bulk operations
+ *
+ * **Embedded Resources:**
+ * Use the `meta.embed` parameter to request related records:
+ * ```tsx
+ * useGetOne('posts', { id: 1, meta: { embed: 'author' } })
+ * ```
  */
 export default (
   apiUrl: string,
@@ -98,17 +149,17 @@ export default (
     return { data: json };
   },
 
-  // json-server doesn't handle filters on UPDATE route, so we fallback to calling UPDATE n times instead
+  // Spring Boot bulk update: PUT /resource?id=1&id=2&id=3 with data in body
   updateMany: async (resource, params) => {
-    const responses = await Promise.all(
-      params.ids.map((id) =>
-        httpClient(`${apiUrl}/${resource}/${id}`, {
-          method: "PUT",
-          body: JSON.stringify(params.data),
-        }),
-      ),
-    );
-    return { data: responses.map(({ json }) => json.id) };
+    const query = {
+      id: params.ids,
+    };
+    const url = `${apiUrl}/${resource}?${queryString.stringify(query)}`;
+    const { json } = await httpClient(url, {
+      method: "PUT",
+      body: JSON.stringify(params.data),
+    });
+    return { data: json };
   },
 
   create: async (resource, params) => {
@@ -126,68 +177,15 @@ export default (
     return { data: json };
   },
 
-  // json-server doesn't handle filters on DELETE route, so we fallback to calling DELETE n times instead
+  // Spring Boot bulk delete: DELETE /resource?id=1&id=2&id=3
   deleteMany: async (resource, params) => {
-    const responses = await Promise.all(
-      params.ids.map((id) =>
-        httpClient(`${apiUrl}/${resource}/${id}`, {
-          method: "DELETE",
-        }),
-      ),
-    );
-    return { data: responses.map(({ json }) => json.id) };
+    const query = {
+      id: params.ids,
+    };
+    const url = `${apiUrl}/${resource}?${queryString.stringify(query)}`;
+    const { json } = await httpClient(url, {
+      method: "DELETE",
+    });
+    return { data: json };
   },
 });
-
-// export type DataProvider<ResourceType extends string = string> = {
-//   getList: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: GetListParams & QueryFunctionContext,
-//   ) => Promise<GetListResult<RecordType>>;
-
-//   getOne: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: GetOneParams<RecordType> & QueryFunctionContext,
-//   ) => Promise<GetOneResult<RecordType>>;
-
-//   getMany: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: GetManyParams<RecordType> & QueryFunctionContext,
-//   ) => Promise<GetManyResult<RecordType>>;
-
-//   getManyReference: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: GetManyReferenceParams & QueryFunctionContext,
-//   ) => Promise<GetManyReferenceResult<RecordType>>;
-
-//   update: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: UpdateParams,
-//   ) => Promise<UpdateResult<RecordType>>;
-
-//   updateMany: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: UpdateManyParams,
-//   ) => Promise<UpdateManyResult<RecordType>>;
-
-//   create: <
-//     RecordType extends Omit<RaRecord, "id"> = any,
-//     ResultRecordType extends RaRecord = RecordType & { id: Identifier },
-//   >(
-//     resource: ResourceType,
-//     params: CreateParams,
-//   ) => Promise<CreateResult<ResultRecordType>>;
-
-//   delete: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: DeleteParams<RecordType>,
-//   ) => Promise<DeleteResult<RecordType>>;
-
-//   deleteMany: <RecordType extends RaRecord = any>(
-//     resource: ResourceType,
-//     params: DeleteManyParams<RecordType>,
-//   ) => Promise<DeleteManyResult<RecordType>>;
-
-//   [key: string]: any;
-//   supportAbortSignal?: boolean;
-// };
