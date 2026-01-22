@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Admin, Resource, List, Datagrid, TextField, EmailField, Create, SimpleForm, TextInput, Edit, EditButton, DeleteButton, BulkDeleteButton, useListContext, useUpdateMany, useRefresh, useNotify, useUnselectAll, Button } from 'react-admin';
-import { Dialog, DialogTitle, DialogContent, DialogActions, TextField as MuiTextField } from '@mui/material';
-import raSpringDataProvider from '../src/index.js';
+import { Admin, Resource, List, Datagrid, TextField, EmailField, Create, SimpleForm, TextInput, Edit, EditButton, DeleteButton, useListContext, useUpdateMany, useRefresh, useNotify, useUnselectAll } from 'react-admin';
+import { Dialog, DialogTitle, DialogContent, DialogActions, TextField as MuiTextField, Button as MuiButton } from '@mui/material';
+import raSpringDataProvider from '../src/index.ts';
 
 // Custom data provider to adapt to our Spring Boot API
 const dataProvider = raSpringDataProvider('http://localhost:8081/api');
@@ -49,11 +49,14 @@ const BulkUpdateRoleButton = () => {
 
   return (
     <>
-      <Button 
-        label="Update Role" 
+      <MuiButton 
         onClick={handleClick}
         disabled={selectedIds.length === 0}
-      />
+        variant="contained"
+        size="small"
+      >
+        Update Role
+      </MuiButton>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Role for Selected Users</DialogTitle>
         <DialogContent>
@@ -69,12 +72,14 @@ const BulkUpdateRoleButton = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button label="Cancel" onClick={handleClose} />
-          <Button 
-            label="Update" 
+          <MuiButton onClick={handleClose}>Cancel</MuiButton>
+          <MuiButton 
             onClick={handleUpdate} 
             disabled={isLoading || !newRole}
-          />
+            variant="contained"
+          >
+            Update
+          </MuiButton>
         </DialogActions>
       </Dialog>
     </>
@@ -85,7 +90,6 @@ const BulkUpdateRoleButton = () => {
 const UserBulkActionButtons = () => (
   <>
     <BulkUpdateRoleButton />
-    <BulkDeleteButton />
   </>
 );
 

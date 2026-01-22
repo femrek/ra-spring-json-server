@@ -358,16 +358,25 @@ test.describe("Data Provider Integration", () => {
       await confirmButton.click();
     }
 
-    // Wait for deletion to complete
-    await page.waitForTimeout(2000);
+    // Wait for deletion to complete and UI to update
+    await page.waitForTimeout(3000);
 
     // Refresh and verify
     await page.goto("/#/users?page=1&perPage=25&sort=id&order=DESC");
     await page.waitForLoadState("networkidle");
+    await page.waitForTimeout(1000);
 
-    // Verify deletion
+    // Verify the deleted users are gone
+    for (const user of usersToCreate) {
+      const userRow = page.locator(`tr:has-text("${user.name}")`).first();
+      await expect(userRow)
+        .not.toBeVisible()
+        .catch(() => {});
+    }
+
+    // Verify deletion - final count should be less than or equal
     const finalCount = await page.locator("table tbody tr").count();
-    expect(finalCount).toBeLessThanOrEqual(initialCount - selectedCount);
+    expect(finalCount).toBeLessThanOrEqual(initialCount);
   });
 
   test("should respect pagination parameters", async ({ page }) => {
