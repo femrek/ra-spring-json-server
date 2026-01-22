@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Admin, Resource, List, Datagrid, TextField, EmailField, Create, SimpleForm, TextInput, Edit, EditButton, DeleteButton, BulkDeleteButton, useListContext, useUpdateMany, useRefresh, useNotify, useUnselectAll, Button } from 'react-admin';
-import jsonServerProvider from 'ra-data-json-server';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField as MuiTextField } from '@mui/material';
+import raSpringDataProvider from '../src/index.js';
 
 // Custom data provider to adapt to our Spring Boot API
-const dataProvider = jsonServerProvider('http://localhost:8081/api');
+const dataProvider = raSpringDataProvider('http://localhost:8081/api');
 
 // Custom Bulk Update Button with Dialog
 const BulkUpdateRoleButton = () => {
