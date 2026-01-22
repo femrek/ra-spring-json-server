@@ -28,7 +28,7 @@ trap cleanup EXIT
 
 # Step 1: Install npm dependencies if needed
 echo -e "${YELLOW}📦 Installing npm dependencies...${NC}"
-cd integration-test
+cd ra-spring-data-provider
 if [ ! -d "node_modules" ]; then
     npm install
 else
@@ -41,7 +41,7 @@ npx playwright install chromium
 
 # Step 3: Start Spring Boot application
 echo -e "${YELLOW}🍃 Starting Spring Boot application on port 8081...${NC}"
-cd ..
+cd ../ra-spring-json-server
 mvn clean test-compile
 mvn exec:java -Ptest-run > spring-boot.log 2>&1 &
 SPRING_PID=$!
@@ -64,7 +64,7 @@ done
 
 # Step 4: Run Playwright tests
 echo -e "${YELLOW}🎭 Running Playwright tests...${NC}"
-cd integration-test
+cd ../ra-spring-data-provider
 npm test
 
 # Step 5: Check test results
