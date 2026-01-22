@@ -1,4 +1,4 @@
-package dev.femrek.reactadmindataprovider.jsonserverextended.service;
+package dev.femrek.reactadmindataprovider.service;
 
 import java.util.List;
 import java.util.Map;
@@ -14,7 +14,7 @@ import dev.femrek.reactadmindataprovider.jsonserver.service.IRAServiceJS;
  * @param <T>  The entity type.
  * @param <ID> The type of the entity's identifier.
  */
-public interface IRAServiceJSExtended<T, ID> extends IRAServiceJS<T, ID> {
+public interface IRAService<T, ID> extends IRAServiceJS<T, ID> {
     /**
      * Updates multiple entities with the same field values.
      *

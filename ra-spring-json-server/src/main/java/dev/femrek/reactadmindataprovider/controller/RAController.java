@@ -1,18 +1,18 @@
-package dev.femrek.reactadmindataprovider.jsonserverextended.controller;
+package dev.femrek.reactadmindataprovider.controller;
 
 import dev.femrek.reactadmindataprovider.jsonserver.controller.RAControllerJS;
-import dev.femrek.reactadmindataprovider.jsonserverextended.service.IRAServiceJSExtended;
+import dev.femrek.reactadmindataprovider.service.IRAService;
 import org.springframework.http.ResponseEntity;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class RAControllerJSExtended<T, ID>
+public abstract class RAController<T, ID>
         extends RAControllerJS<T, ID>
-        implements IRAControllerJSExtended<T, ID> {
+        implements IRAController<T, ID> {
     @Override
-    protected abstract IRAServiceJSExtended<T, ID> getService();
+    protected abstract IRAService<T, ID> getService();
 
     @Override
     public ResponseEntity<List<ID>> updateMany(List<ID> id, Map<String, Object> fields) {

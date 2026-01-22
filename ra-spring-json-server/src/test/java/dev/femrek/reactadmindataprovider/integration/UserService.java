@@ -1,6 +1,6 @@
 package dev.femrek.reactadmindataprovider.integration;
 
-import dev.femrek.reactadmindataprovider.jsonserverextended.service.IRAServiceJSExtended;
+import dev.femrek.reactadmindataprovider.service.IRAService;
 import jakarta.persistence.criteria.Predicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class UserService implements IRAServiceJSExtended<User, Long> {
+public class UserService implements IRAService<User, Long> {
 
     @Autowired
     private UserRepository userRepository;

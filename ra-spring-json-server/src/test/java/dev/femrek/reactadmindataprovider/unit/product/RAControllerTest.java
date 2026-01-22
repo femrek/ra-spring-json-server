@@ -1,4 +1,4 @@
-package dev.femrek.reactadmindataprovider.unit.jsonserverextended;
+package dev.femrek.reactadmindataprovider.unit.product;
 
 import dev.femrek.reactadmindataprovider.unit.TestApplication;
 import dev.femrek.reactadmindataprovider.unit.UserRepository;
@@ -25,13 +25,13 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest(classes = TestApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestPropertySource(locations = "classpath:application-test.properties")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class RAControllerJSExtendedTest {
+class RAControllerTest {
     @LocalServerPort
     private int port;
     private final UserRepository userRepository;
 
     @Autowired
-    public RAControllerJSExtendedTest(UserRepository userRepository) {
+    public RAControllerTest(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

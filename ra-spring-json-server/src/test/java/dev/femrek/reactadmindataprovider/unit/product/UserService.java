@@ -1,6 +1,6 @@
-package dev.femrek.reactadmindataprovider.unit.jsonserverextended;
+package dev.femrek.reactadmindataprovider.unit.product;
 
-import dev.femrek.reactadmindataprovider.jsonserverextended.service.IRAServiceJSExtended;
+import dev.femrek.reactadmindataprovider.service.IRAService;
 import dev.femrek.reactadmindataprovider.unit.User;
 import dev.femrek.reactadmindataprovider.unit.UserRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -20,11 +20,10 @@ import java.util.stream.StreamSupport;
  * for batch processing of entities.
  */
 @Service
-public class UserServiceJSExtended implements IRAServiceJSExtended<User, Long> {
-
+public class UserService implements IRAService<User, Long> {
     private final UserRepository userRepository;
 
-    public UserServiceJSExtended(UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
 
