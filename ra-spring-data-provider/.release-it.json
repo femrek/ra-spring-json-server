@@ -7,10 +7,10 @@
     "requireUpstream": true
   },
   "npm": {
-    "publish": false
+    "publish": true
   },
   "github": {
-    "release": false
+    "release": true
   },
   "hooks": {
     "before:init": ["git pull origin main"]
