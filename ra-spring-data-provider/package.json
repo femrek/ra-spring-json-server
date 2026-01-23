@@ -1,6 +1,6 @@
 {
   "name": "ra-spring-data-provider",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Admin data provider for Spring Boot REST APIs",
   "scripts": {
     "dev": "vite",
