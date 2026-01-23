@@ -15,7 +15,8 @@
     "test:performance": "playwright test performance.spec.js",
     "test:ui-ux": "playwright test ui-ux.spec.js",
     "test:report": "playwright show-report",
-    "install-browsers": "playwright install"
+    "install-browsers": "playwright install",
+    "release": "release-it"
   },
   "keywords": [
     "react-admin",
@@ -23,6 +24,20 @@
     "spring-boot",
     "rest-api"
   ],
+  "main": "src/index.js",
+  "module": "src/index.js",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/femrek/ra-spring-json-server.git",
+    "directory": "ra-spring-data-provider"
+  },
+  "author": "femrek",
+  "license": "Apache-2.0",
   "dependencies": {
     "query-string": "^9.1.0",
     "ra-core": "^5.4.0",
@@ -36,8 +51,8 @@
   "devDependencies": {
     "@emotion/react": "^11.13.3",
     "@emotion/styled": "^11.13.0",
-    "@mui/material": "^6.3.0",
     "@mui/icons-material": "^6.3.0",
+    "@mui/material": "^6.3.0",
     "@playwright/experimental-ct-react": "^1.49.0",
     "@playwright/test": "^1.49.0",
     "@types/node": "^25.0.10",
@@ -45,6 +60,7 @@
     "react": "^18.3.1",
     "react-admin": "^5.4.0",
     "react-dom": "^18.3.1",
+    "release-it": "^19.2.4",
     "vite": "^6.0.5"
   }
 }
