@@ -72,8 +72,8 @@ public abstract class RAControllerJS<T, C, ID> implements IRAControllerJS<T, C, 
     }
 
     @Override
-    public ResponseEntity<?> create(C entity) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(getService().create(entity));
+    public ResponseEntity<?> create(C data) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(getService().create(data));
     }
 
     @Override

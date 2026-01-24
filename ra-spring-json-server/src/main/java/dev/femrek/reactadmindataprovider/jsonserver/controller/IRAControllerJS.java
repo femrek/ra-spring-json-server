@@ -62,12 +62,12 @@ public interface IRAControllerJS<T, C, ID> {
      * Creates a new entity.
      * This endpoint implements ra-data-json-server's create operation.
      *
-     * @param entity the entity to create, provided in the request body
+     * @param data the request body for the new entity to create
      * @return ResponseEntity containing the created entity with generated ID and any server-side defaults,
      * typically with HTTP status 201 Created
      */
     @PostMapping
-    ResponseEntity<?> create(@RequestBody C entity);
+    ResponseEntity<?> create(@RequestBody C data);
 
     /**
      * Updates an existing entity with the provided fields.

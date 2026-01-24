@@ -91,11 +91,11 @@ public class UserService implements IRAService<UserResponseDTO, UserCreateDTO, L
     }
 
     @Override
-    public UserResponseDTO create(UserCreateDTO entity) {
+    public UserResponseDTO create(UserCreateDTO data) {
         User user = new User();
-        user.setName(entity.getName());
-        user.setEmail(entity.getEmail());
-        user.setRole(entity.getRole());
+        user.setName(data.getName());
+        user.setEmail(data.getEmail());
+        user.setRole(data.getRole());
 
         User savedUser = userRepository.save(user);
         UserResponseDTO result = new UserResponseDTO();

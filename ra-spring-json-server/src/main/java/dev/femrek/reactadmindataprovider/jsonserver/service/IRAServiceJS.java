@@ -37,10 +37,10 @@ public interface IRAServiceJS<T, C, ID> {
     /**
      * Creates a new entity.
      *
-     * @param entity The entity to save.
+     * @param data The entity data to save.
      * @return The saved entity.
      */
-    Object create(C entity);
+    Object create(C data);
 
     /**
      * Updates specific fields of an existing entity.
