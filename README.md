@@ -53,7 +53,7 @@ Add the dependency to your `pom.xml`:
 <dependency>
     <groupId>dev.femrek</groupId>
     <artifactId>ra-spring-json-server</artifactId>
-    <version>0.2.1</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
@@ -62,7 +62,7 @@ Add the dependency to your `pom.xml`:
 Add the dependency to your `build.gradle`:
 
 ```gradle
-implementation 'dev.femrek:ra-spring-json-server:0.2.1'
+implementation 'dev.femrek:ra-spring-json-server:1.0.0'
 ```
 
 ## Quick Start
