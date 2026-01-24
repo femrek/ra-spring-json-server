@@ -14,14 +14,14 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Map;
 
-public abstract class RAControllerJS<T, ID> implements IRAControllerJS<T, ID> {
+public abstract class RAControllerJS<T, C, ID> implements IRAControllerJS<T, C, ID> {
     private static final Log log = LogFactory.getLog(RAControllerJS.class);
 
     private static final List<String> RESERVED_PARAMS = List.of(
             "_start", "_end", "_sort", "_order", "q", "id", "_embed"
     );
 
-    protected abstract IRAServiceJS<T, ID> getService();
+    protected abstract IRAServiceJS<T, C, ID> getService();
 
     @Override
     public ResponseEntity<List<T>> getList(
@@ -72,17 +72,17 @@ public abstract class RAControllerJS<T, ID> implements IRAControllerJS<T, ID> {
     }
 
     @Override
-    public ResponseEntity<T> create(T entity) {
+    public ResponseEntity<?> create(C entity) {
         return ResponseEntity.status(HttpStatus.CREATED).body(getService().create(entity));
     }
 
     @Override
-    public ResponseEntity<T> update(ID id, Map<String, Object> fields) {
+    public ResponseEntity<?> update(ID id, Map<String, Object> fields) {
         return ResponseEntity.ok(getService().update(id, fields));
     }
 
     @Override
-    public ResponseEntity<Void> delete(ID id) {
+    public ResponseEntity<?> delete(ID id) {
         getService().deleteById(id);
         return ResponseEntity.noContent().build();
     }

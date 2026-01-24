@@ -15,7 +15,7 @@ import java.util.Map;
  * @param <T>  the entity type managed by this controller
  * @param <ID> the entity identifier type, must be Serializable
  */
-public interface IRAControllerJS<T, ID> {
+public interface IRAControllerJS<T, C, ID> {
     /**
      * Retrieves a list of entities with support for pagination, sorting, filtering, and multiple query modes.
      * This unified endpoint handles three ra-data-json-server operations:
@@ -67,7 +67,7 @@ public interface IRAControllerJS<T, ID> {
      * typically with HTTP status 201 Created
      */
     @PostMapping
-    ResponseEntity<T> create(@RequestBody T entity);
+    ResponseEntity<?> create(@RequestBody C entity);
 
     /**
      * Updates an existing entity with the provided fields.
@@ -78,7 +78,7 @@ public interface IRAControllerJS<T, ID> {
      * @return ResponseEntity containing the updated entity
      */
     @PutMapping("/{id}")
-    ResponseEntity<T> update(@PathVariable ID id, @RequestBody Map<String, Object> fields);
+    ResponseEntity<?> update(@PathVariable ID id, @RequestBody Map<String, Object> fields);
 
     /**
      * Deletes a single entity by its identifier.
@@ -88,5 +88,5 @@ public interface IRAControllerJS<T, ID> {
      * @return ResponseEntity with no content (204 No Content)
      */
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable ID id);
+    ResponseEntity<?> delete(@PathVariable ID id);
 }

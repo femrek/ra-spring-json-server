@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 import java.util.Map;
 
-public interface IRAController<T, ID> extends IRAControllerJS<T, ID> {
+public interface IRAController<T, C, ID> extends IRAControllerJS<T, C, ID> {
     /**
      * Updates multiple entities with the same field values in a single operation.
      * This endpoint implements ra-data-json-server's updateMany operation for bulk updates.

@@ -14,7 +14,7 @@ import dev.femrek.reactadmindataprovider.jsonserver.service.IRAServiceJS;
  * @param <T>  The entity type.
  * @param <ID> The type of the entity's identifier.
  */
-public interface IRAService<T, ID> extends IRAServiceJS<T, ID> {
+public interface IRAService<T, C, ID> extends IRAServiceJS<T, C, ID> {
     /**
      * Updates multiple entities with the same field values.
      *

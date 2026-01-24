@@ -8,11 +8,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
-public abstract class RAController<T, ID>
-        extends RAControllerJS<T, ID>
-        implements IRAController<T, ID> {
+public abstract class RAController<T, C, ID>
+        extends RAControllerJS<T, C, ID>
+        implements IRAController<T, C, ID> {
     @Override
-    protected abstract IRAService<T, ID> getService();
+    protected abstract IRAService<T, C, ID> getService();
 
     @Override
     public ResponseEntity<List<ID>> updateMany(List<ID> id, Map<String, Object> fields) {

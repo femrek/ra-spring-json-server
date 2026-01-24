@@ -6,7 +6,8 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 import java.util.Map;
 
-public interface IRAServiceJS<T, ID> {
+@SuppressWarnings("UnusedReturnValue")
+public interface IRAServiceJS<T, C, ID> {
     /**
      * Finds entities matching the given filters and global search query.
      *
@@ -39,7 +40,7 @@ public interface IRAServiceJS<T, ID> {
      * @param entity The entity to save.
      * @return The saved entity.
      */
-    T create(T entity);
+    Object create(C entity);
 
     /**
      * Updates specific fields of an existing entity.
@@ -48,12 +49,12 @@ public interface IRAServiceJS<T, ID> {
      * @param fields A map of field names to their new values.
      * @return The updated entity.
      */
-    T update(ID id, Map<String, Object> fields);
+    Object update(ID id, Map<String, Object> fields);
 
     /**
      * Deletes an entity by its ID.
      *
      * @param id The ID of the entity to delete.
      */
-    void deleteById(ID id);
+    Object deleteById(ID id);
 }

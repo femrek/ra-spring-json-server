@@ -2,7 +2,8 @@ package dev.femrek.reactadmindataprovider.unit.product;
 
 import dev.femrek.reactadmindataprovider.controller.RAController;
 import dev.femrek.reactadmindataprovider.service.IRAService;
-import dev.femrek.reactadmindataprovider.unit.User;
+import dev.femrek.reactadmindataprovider.unit.UserCreateDTO;
+import dev.femrek.reactadmindataprovider.unit.UserResponseDTO;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/users-extended")
 @CrossOrigin(origins = "*")
-public class UserController extends RAController<User, Long> {
+public class UserController extends RAController<UserResponseDTO, UserCreateDTO, Long> {
     private final UserService userServiceJSExtended;
 
     public UserController(UserService userServiceJSExtended) {
@@ -23,8 +24,7 @@ public class UserController extends RAController<User, Long> {
     }
 
     @Override
-    protected IRAService<User, Long> getService() {
+    protected IRAService<UserResponseDTO, UserCreateDTO, Long> getService() {
         return userServiceJSExtended;
     }
 }
-

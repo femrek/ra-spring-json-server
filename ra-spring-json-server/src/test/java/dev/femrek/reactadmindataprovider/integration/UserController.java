@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/users")
 @CrossOrigin(origins = "*")
-public class UserController extends RAController<User, Long> {
-    private final UserService userService;
+public class UserController extends RAController<UserResponseDTO, UserCreateDTO, Long> {
+    private final UserService userServiceJSExtended;
 
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public UserController(UserService userServiceJSExtended) {
+        this.userServiceJSExtended = userServiceJSExtended;
     }
 
     @Override
-    protected IRAService<User, Long> getService() {
-        return userService;
+    protected IRAService<UserResponseDTO, UserCreateDTO, Long> getService() {
+        return userServiceJSExtended;
     }
 }
