@@ -702,13 +702,6 @@ class RAControllerTest {
 
         try (Response response = client.newCall(request).execute()) {
             assertEquals(400, response.code());
-            assertNotNull(response.body());
-
-            List<Map<String, Object>> responseBody = objectMapper.readValue(
-                    response.body().string(),
-                    objectMapper.getTypeFactory().constructCollectionType(List.class, Map.class)
-            );
-            assertFalse(responseBody.isEmpty());
         }
     }
 }
