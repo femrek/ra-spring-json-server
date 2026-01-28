@@ -5,7 +5,7 @@
 [![Java](https://img.shields.io/badge/Java-17+-orange.svg)](https://www.oracle.com/java/)
 [![Spring Boot](https://img.shields.io/badge/Spring%20Boot-4.0.1-green.svg)](https://spring.io/projects/spring-boot)
 
-A Spring Boot library that simplifies building [React Admin][react-admin] backends. This library provides a standardized REST API implementation that works with the [ra-spring-data-provider][ra-spring-data-provider] data provider, which is based on the [ra-data-json-server][ra-data-json-server] protocol and provides efficient bulk operations.
+A Spring Boot library that simplifies building [React Admin][react-admin] backends. This library provides a standardized REST API implementation that works with the [ra-spring-data-provider][ra-spring-data-provider] data provider, which is based on the [ra-data-json-server][ra-data-json-server] protocol.
 
 ## 📋 Table of Contents
 
@@ -27,7 +27,7 @@ This library bridges the gap between Spring Boot applications and React Admin fr
 
 - **Drop-in Controllers**: Extend `RAController` to automatically handle all React Admin data provider operations
 - **Service Interface**: Implement `IRAService` to define your business logic
-- **Dedicated Data Provider**: Use the compatible [ra-spring-data-provider][ra-spring-data-provider] data provider on client side, which is based on the [ra-data-json-server][ra-data-json-server] protocol.
+- **Dedicated Data Provider**: Use the compatible [ra-spring-data-provider] data provider on client side to full compatibility.
 - **Advanced Features**: Built-in support on your API design for pagination, sorting, filtering, and global search
 
 ## Features
@@ -319,7 +319,6 @@ The `IRAService` interface requires you to implement:
 The `findWithFilters()` method receives:
 
 - **`filters`**: Map of field names to filter values (e.g., `{"role": "admin"}`)
-- **`q`**: Global search string (search across multiple fields)
 - **`pageable`**: Spring Data Pageable with pagination and sorting info
 
 Example implementation with JPA Specifications:
@@ -370,22 +369,24 @@ public Page<User> findWithFilters(Map<String, String> filters, String q, Pageabl
 | GET    | `/{resource}/{id}`      | `getOne`           | Get single record               |
 | POST   | `/{resource}`           | `create`           | Create new record               |
 | PUT    | `/{resource}/{id}`      | `update`           | Update single record            |
-| DELETE | `/{resource}/{id}`      | `delete`           | Delete single record            |
 | PUT    | `/{resource}?id=1&id=2` | `updateMany`       | Update multiple records (bulk)  |
+| DELETE | `/{resource}/{id}`      | `delete`           | Delete single record            |
 | DELETE | `/{resource}?id=1&id=2` | `deleteMany`       | Delete multiple records (bulk)  |
-
-**Note:** The [ra-spring-data-provider][ra-spring-data-provider] sends single requests with multiple `id` query parameters for bulk operations (updateMany and deleteMany), based on the [ra-data-json-server] protocol specification.
 
 ### Query Parameters
 
-- `_start`: Start index for pagination (default: 0)
-- `_end`: End index for pagination (default: 10)
+#### getList
+
+- `_start`: Start index for pagination (required)
+- `_end`: End index for pagination (required)
 - `_sort`: Field to sort by (default: "id")
 - `_order`: Sort order (`ASC` or `DESC`, default: "ASC")
 - `_embed`: May be sent by React Admin but is ignored.
-- `id`: Array of IDs (for getMany, updateMany, deleteMany operations)
-- `q`: Global search query
 - Any other params are treated as field filters
+
+#### getMany, updateMany & deleteMany
+
+- `id`: Array of IDs (for getMany, updateMany, deleteMany operations)
 
 ### Development Setup
 
