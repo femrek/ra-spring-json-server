@@ -92,7 +92,7 @@ Your implementation needs to:
 
 The `IRAService` interface requires you to implement:
 
-- **`findWithFilters()`**: Query with filters (including `q` for search), pagination, and sorting - returns Page<ResponseDTO>
+- **`findWithFilters()`**: Query with filters, pagination, and sorting - returns Page<ResponseDTO>
 - **`findAllById()`**: Fetch multiple records by IDs - returns List<ResponseDTO>
 - **`findById()`**: Fetch a single record - returns ResponseDTO
 - **`create()`**: Create a new record from CreateDTO - returns ResponseDTO
