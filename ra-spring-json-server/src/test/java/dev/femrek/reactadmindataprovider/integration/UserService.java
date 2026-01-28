@@ -137,9 +137,8 @@ class UserService implements IRAService<UserResponseDTO, UserCreateDTO, Long> {
     }
 
     @Override
-    public Void deleteById(Long id) {
+    public void deleteById(Long id) {
         userRepository.deleteById(id);
-        return null;
     }
 
     /**

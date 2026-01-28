@@ -47,7 +47,7 @@ public interface IRAService<T, C, ID> {
      * @param data The entity data to save.
      * @return The saved entity.
      */
-    Object create(C data);
+    T create(C data);
 
     /**
      * Updates specific fields of an existing entity.
@@ -56,7 +56,7 @@ public interface IRAService<T, C, ID> {
      * @param fields A map of field names to their new values.
      * @return The updated entity.
      */
-    Object update(ID id, Map<String, Object> fields);
+    T update(ID id, Map<String, Object> fields);
 
     /**
      * Updates multiple entities with the same field values.
@@ -72,7 +72,7 @@ public interface IRAService<T, C, ID> {
      *
      * @param id The ID of the entity to delete.
      */
-    Object deleteById(ID id);
+    void deleteById(ID id);
 
     /**
      * Deletes multiple entities by their IDs.
