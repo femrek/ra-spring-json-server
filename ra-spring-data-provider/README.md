@@ -37,17 +37,17 @@ export default App;
 
 This data provider uses the JSON Server API format to communicate with the backend. Your Spring Boot API should follow these conventions:
 
-| React Admin Method | HTTP Method | URL Example                                                   |
-| ------------------ | ----------- | ------------------------------------------------------------- |
-| `getList`          | `GET`       | `http://api.url/users?_sort=name&_order=ASC&_start=0&_end=24` |
-| `getOne`           | `GET`       | `http://api.url/users/123`                                    |
-| `getMany`          | `GET`       | `http://api.url/users?id=123&id=456`                          |
-| `getManyReference` | `GET`       | `http://api.url/users?authorId=345`                           |
-| `create`           | `POST`      | `http://api.url/users`                                        |
-| `update`           | `PUT`       | `http://api.url/users/123`                                    |
-| `updateMany`       | `PUT`       | `http://api.url/users?id=123&id=456`                          |
-| `delete`           | `DELETE`    | `http://api.url/users/123`                                    |
-| `deleteMany`       | `DELETE`    | `http://api.url/users?id=123&id=456`                          |
+| React Admin Method | HTTP Method | URL Example                                                                          |
+| ------------------ | ----------- | ------------------------------------------------------------------------------------ |
+| `getList`          | `GET`       | `http://api.url/users?_sort=name&_order=ASC&_start=0&_end=24`                        |
+| `getOne`           | `GET`       | `http://api.url/users/123`                                                           |
+| `getMany`          | `GET`       | `http://api.url/users/many?id=123&id=456`                                            |
+| `getManyReference` | `GET`       | `http://api.url/users/of/{target}/{targetId}?_sort=name&_order=ASC&_start=0&_end=24` |
+| `create`           | `POST`      | `http://api.url/users`                                                               |
+| `update`           | `PUT`       | `http://api.url/users/123`                                                           |
+| `updateMany`       | `PUT`       | `http://api.url/users?id=123&id=456`                                                 |
+| `delete`           | `DELETE`    | `http://api.url/users/123`                                                           |
+| `deleteMany`       | `DELETE`    | `http://api.url/users?id=123&id=456`                                                 |
 
 ## Backend Requirements
 
@@ -90,4 +90,4 @@ This project is dual-licensed under:
 
 You may choose either license for your use of this library.
 
-[ra-spring-json-server]: https://github.com/femrek/ra-spring-data-provider
+[ra-spring-json-server]: https://github.com/femrek/ra-spring-data-provider/tree/main/ra-spring-json-server

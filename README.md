@@ -164,20 +164,21 @@ public Page<UserResponseDTO> findWithFilters(Map<String, String> filters, Pageab
 
 `RAContoller` automatically provides these endpoints. These are also the ra-spring-data-provider end-points:
 
-| Method | Endpoint                | React Admin Method | Description                     |
-| ------ | ----------------------- | ------------------ | ------------------------------- |
-| GET    | `/{resource}`           | `getList`          | Get paginated list with filters |
-| GET    | `/{resource}?id=1&id=2` | `getMany`          | Get multiple records by IDs     |
-| GET    | `/{resource}/{id}`      | `getOne`           | Get single record               |
-| POST   | `/{resource}`           | `create`           | Create new record               |
-| PUT    | `/{resource}/{id}`      | `update`           | Update single record            |
-| PUT    | `/{resource}?id=1&id=2` | `updateMany`       | Update multiple records (bulk)  |
-| DELETE | `/{resource}/{id}`      | `delete`           | Delete single record            |
-| DELETE | `/{resource}?id=1&id=2` | `deleteMany`       | Delete multiple records (bulk)  |
+| Method | Endpoint                                       | React Admin Method | Description                     |
+| ------ | ---------------------------------------------- | ------------------ | ------------------------------- |
+| GET    | `/{resource}`                                  | `getList`          | Get paginated list with filters |
+| GET    | `/{resource}/many?id=1&id=2`                   | `getMany`          | Get multiple records by IDs     |
+| GET    | `/{resource}/of/{target}/{targetId}?id=1&id=2` | `getManyReference` | Get records by reference        |
+| GET    | `/{resource}/{id}`                             | `getOne`           | Get single record               |
+| POST   | `/{resource}`                                  | `create`           | Create new record               |
+| PUT    | `/{resource}/{id}`                             | `update`           | Update single record            |
+| PUT    | `/{resource}?id=1&id=2`                        | `updateMany`       | Update multiple records (bulk)  |
+| DELETE | `/{resource}/{id}`                             | `delete`           | Delete single record            |
+| DELETE | `/{resource}?id=1&id=2`                        | `deleteMany`       | Delete multiple records (bulk)  |
 
 ### Query Parameters
 
-#### getList
+#### getList, getManyReference
 
 - `_start`: Start index for pagination (required)
 - `_end`: End index for pagination (required)
@@ -224,8 +225,6 @@ You may choose either license for your use of this library.
 ## Acknowledgments
 
 - [React Admin][react-admin] - Frontend framework for building admin interfaces.
-  - [ra-data-json-server][ra-data-json-server] -
-    The data provider protocol specification provided by React Admin.
 - [Spring Boot][spring-boot] - Backend framework that this library provides integration for.
 
 ## Resources
