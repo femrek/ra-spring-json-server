@@ -26,7 +26,7 @@ public interface IRAController<T, C, ID> {
      * applied through additional query parameters passed in allParams.</p>
      *
      * <p><b>Example request:</b></p>
-     * <pre>GET /api/posts?_start=0&_end=10&_sort=title&_order=ASC&status=published</pre>
+     * <pre>GET /api/posts?_start=0&amp;_end=10&amp;_sort=title&amp;_order=ASC&amp;status=published</pre>
      *
      * <p>The response must include an <code>X-Total-Count</code> header containing the total number
      * of entities matching the filter criteria (not just the current page). This header is essential
@@ -65,7 +65,7 @@ public interface IRAController<T, C, ID> {
      * specific records, such as when displaying relationships or selected items.</p>
      *
      * <p><b>Example request:</b></p>
-     * <pre>GET /api/posts/many?id=1&id=5&id=12</pre>
+     * <pre>GET /api/posts/many?id=1&amp;id=5&amp;id=12</pre>
      *
      * <p>The response contains only the entities whose IDs were provided in the request.
      * If an ID doesn't exist, it is typically omitted from the response (rather than returning an error).
@@ -89,7 +89,7 @@ public interface IRAController<T, C, ID> {
      * Unlike getList, the filter is based on a reference relationship rather than arbitrary criteria.</p>
      *
      * <p><b>Example request:</b></p>
-     * <pre>GET /api/comments/of/postId/123?_start=0&_end=10&_sort=createdAt&_order=DESC</pre>
+     * <pre>GET /api/comments/of/postId/123?_start=0&amp;_end=10&amp;_sort=createdAt&amp;_order=DESC</pre>
      *
      * <p>This would retrieve comments where the postId field equals 123, paginated and sorted.</p>
      *
@@ -134,7 +134,7 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity containing the requested entity
      */
     @GetMapping("/{id}")
-    ResponseEntity<T> getOne(@PathVariable ID id);
+    ResponseEntity<T> getOne(@PathVariable(name = "id") ID id);
 
     /**
      * Creates a new entity.
