@@ -48,11 +48,11 @@ public interface IRAController<T, C, ID> {
      */
     @GetMapping
     ResponseEntity<List<T>> getList(
-            @RequestParam int _start,
-            @RequestParam int _end,
-            @RequestParam(required = false, defaultValue = "id") String _sort,
-            @RequestParam(required = false, defaultValue = "ASC") String _order,
-            @RequestParam(required = false) String _embed,
+            @RequestParam(name = "_start") int _start,
+            @RequestParam(name = "_end") int _end,
+            @RequestParam(name = "_sort", required = false, defaultValue = "id") String _sort,
+            @RequestParam(name = "_order", required = false, defaultValue = "ASC") String _order,
+            @RequestParam(name = "_embed", required = false) String _embed,
             @RequestParam Map<String, String> allParams
     );
 
@@ -78,7 +78,7 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity containing a list of entities with the specified IDs
      */
     @GetMapping("/many")
-    ResponseEntity<List<T>> getMany(@RequestParam List<ID> id);
+    ResponseEntity<List<T>> getMany(@RequestParam(name = "id") List<ID> id);
 
     /**
      * Retrieves a paginated list of entities that reference another specific entity.
@@ -116,13 +116,13 @@ public interface IRAController<T, C, ID> {
      */
     @GetMapping("/of/{target}/{targetId}")
     ResponseEntity<List<T>> getManyReference(
-            @PathVariable String target,
-            @PathVariable String targetId,
-            @RequestParam int _start,
-            @RequestParam int _end,
-            @RequestParam(required = false, defaultValue = "id") String _sort,
-            @RequestParam(required = false, defaultValue = "ASC") String _order,
-            @RequestParam(required = false) String _embed,
+            @PathVariable(name = "target") String target,
+            @PathVariable(name = "targetId") String targetId,
+            @RequestParam(name = "_start") int _start,
+            @RequestParam(name = "_end") int _end,
+            @RequestParam(name = "_sort", required = false, defaultValue = "id") String _sort,
+            @RequestParam(name = "_order", required = false, defaultValue = "ASC") String _order,
+            @RequestParam(name = "_embed", required = false) String _embed,
             @RequestParam Map<String, String> allParams
     );
 
@@ -156,7 +156,7 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity containing the updated entity
      */
     @PutMapping("/{id}")
-    ResponseEntity<T> update(@PathVariable ID id, @RequestBody Map<String, Object> fields);
+    ResponseEntity<T> update(@PathVariable(name = "id") ID id, @RequestBody Map<String, Object> fields);
 
     /**
      * Deletes a single entity by its identifier.
@@ -166,7 +166,7 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity with no content (204 No Content)
      */
     @DeleteMapping("/{id}")
-    ResponseEntity<Void> delete(@PathVariable ID id);
+    ResponseEntity<Void> delete(@PathVariable(name = "id") ID id);
 
     /**
      * Updates multiple entities with the same field values in a single operation.
@@ -181,7 +181,7 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity containing a list of updated entity IDs
      */
     @PutMapping
-    ResponseEntity<List<ID>> updateMany(@RequestParam(required = false) List<ID> id, @RequestBody Map<String, Object> fields);
+    ResponseEntity<List<ID>> updateMany(@RequestParam(name = "id", required = false) List<ID> id, @RequestBody Map<String, Object> fields);
 
     /**
      * Deletes multiple entities in a single operation.
@@ -191,5 +191,5 @@ public interface IRAController<T, C, ID> {
      * @return ResponseEntity containing a list of deleted entity IDs
      */
     @DeleteMapping
-    ResponseEntity<List<ID>> deleteMany(@RequestParam(required = false) List<ID> id);
+    ResponseEntity<List<ID>> deleteMany(@RequestParam(name = "id", required = false) List<ID> id);
 }
